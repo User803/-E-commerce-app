@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Product Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+<!--        header {-->
+<!--            background-color: #333;-->
+<!--            color: white;-->
+<!--            text-align: center;-->
+<!--            padding: 15px;-->
+<!--            margin-bottom: 80px;-->
+<!--        }-->
+
+<!--        .navbar-nav .nav-link {-->
+<!--            padding: 10px 15px;-->
+<!--        }-->
+
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 15px 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .product-description {
+            color: #777;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #27ae60;
+        }
+
+<!--        .btn {-->
+<!--            display: inline-block;-->
+<!--            background-color: #28a745;-->
+<!--            color: white;-->
+<!--            padding: 10px 20px;-->
+<!--            border-radius: 4px;-->
+<!--            text-align: center;-->
+<!--            text-decoration: none;-->
+<!--            transition: background-color 0.3s ease;-->
+<!--        }-->
+
+<!--        .btn:hover {-->
+<!--            background-color: #28a745;-->
+<!--        }-->
+
+        .container {
+            max-width: 1200px;
+            margin-top: 100px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .col-lg-4 {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<div th:fragment="body">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand me-5" th:href="@{/}">Ecommerce App</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item me-5">
+                        <a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
+                    </li>
+                    <li class="nav-item me-5">
+                        <a class="nav-link" th:href="@{/aboutUs}">About Us</a>
+                    </li>
+                    <li class="nav-item me-5">
+                        <a class="nav-link" th:href="@{/products}">Products</a>
+                    </li>
+                    <li class="nav-item me-5">
+                        <a class="nav-link" th:href="@{/contactUs}">Contact Us</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="login">
+                    <a th:href="@{/login}" class="btn btn-success">Login</a>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+<!--    <section class="container py-5">-->
+<!--        <div class="row g-4" th:each="s: ${productList}">-->
+<!--            <div class="col-md-4 py-5">-->
+<!--                <div class="card shadow-sm h-100">-->
+<!--                    <div class="card-body">-->
+<!--                        <h5 class="card-title">Product Name: <span th:text="${s.name}"></span></h5>-->
+<!--                        <p class="card-text">Product Price: <span th:text="'₹ '+${s.price}"></span></p>-->
+<!--                        <a href="/login" class="btn btn-success buy-btn">Buy Now</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+
+    <div class="container">
+        <div class="row">
+            <!-- Product 1 -->
+            <!-- Real product-->
+            <div class="col-lg-4 col-md-6" th:each="product : ${products}">
+                <div class="product-card">
+                    <div class="product-image">
+                        <!-- Dynamically bind the image URL from the product object -->
+<!--                        <img th:src="@{${product.imageUrl}}" alt="Product Image">-->
+                        <img th:src="@{classpath:/static/images/wirelessearbuds.jpg}" alt="Product 1">
+                    </div>
+                    <div class="product-info">
+                        <!-- Dynamically bind the product name from the product object -->
+                        <div class="product-name" th:text="${product.name}">Wireless Earbuds</div>
+                        <!-- Dynamically bind the product description from the product object -->
+                        <div class="product-description" th:text="${product.description}">High-quality sound and long-lasting battery life for all your music needs.</div>
+                        <!-- Dynamically bind the product price from the product object -->
+                        <div class="price" th:text="${product.price}">$59.99</div>
+                        <!-- Add to Cart button (you can add actual logic to this later) -->
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dummy products   -->
+            <!-- Product 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/250x200.png?text=Product+2" alt="Product 2">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Smartwatch</div>
+                        <div class="product-description">Track your fitness and stay connected with this sleek smartwatch.</div>
+                        <div class="price">$129.99</div>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/250x200.png?text=Product+3" alt="Product 3">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Bluetooth Speaker</div>
+                        <div class="product-description">Portable and waterproof speaker with great sound quality for outdoor activities.</div>
+                        <div class="price">$79.99</div>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/250x200.png?text=Product+4" alt="Product 4">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Laptop Backpack</div>
+                        <div class="product-description">Stylish and durable backpack for carrying your laptop and accessories.</div>
+                        <div class="price">$49.99</div>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/250x200.png?text=Product+5" alt="Product 5">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Digital Camera</div>
+                        <div class="product-description">Capture stunning photos with this high-quality digital camera.</div>
+                        <div class="price">$499.99</div>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add to cart functionality (for demo purposes)
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                event.preventDefault();
+                alert('Item added to your cart!');
+            });
+        });
+    </script>
+</div>
+
+</body>
+</html>
